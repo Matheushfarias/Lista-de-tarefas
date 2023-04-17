@@ -6,21 +6,12 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 export default function App() {
 
-  let [lista, setLista] = useState([
-    { nome: "arrumar a cama ", key: 1 },
-    { nome: "lavar a louça", key: 2 },
-    { nome: "lavar a roupa", key: 3 },
-    { nome: "academia", key: 4 },
-    { nome: "zavala", key: 5 },
-    { nome: "ikora", key: 6 },
-    { nome: "oryx", key: 7 },
-    { nome: "Cayde-6", key: 8 }
-  ]);
-  
+  let [lista, setLista] = useState([]);
+
   let [novaLista, setNovaLista] = useState('');
 
   const adicionarLista = () => {
-    if(novaLista !== ''){
+    if (novaLista !== '') {
       let novaListaObj = { nome: novaLista, key: lista.length + 1 };
       setLista([...lista, novaListaObj]);
       setNovaLista('');
@@ -37,10 +28,10 @@ export default function App() {
       <View style={styles.container}>
         <Text style={styles.texto}>Gerenciador de Listas</Text>
         <View style={styles.inputContainer}>
-          
           <TextInput
             style={styles.input}
             onChangeText={setNovaLista}
+            multiline
             value={novaLista}
             placeholder="Nome da nova lista"
           />
@@ -48,16 +39,18 @@ export default function App() {
             <Text style={styles.botaoTexto}>Adicionar</Text>
           </TouchableOpacity>
         </View>
-
+        
         <FlatList
           numColumns={1}
           keyExtractor={(item) => item.key}
           data={lista}
           renderItem={({ item }) => (
-            <View style={styles.listaContainer}>
-              <Text style={styles.texto}>{item.nome}</Text>
+            <View style={styles.viewflatlist}>
+              <View style={styles.itemContainer}>
+                <Text style={styles.itemTexto}>{item.nome}</Text>
+              </View>
               <TouchableOpacity style={styles.container2}>
-                <FontAwesome5 name="pen" size={24} color="#4CAF50" />
+                <FontAwesome5 name="pen" size={24} color="#38cb2e" />
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.container2}
@@ -68,8 +61,7 @@ export default function App() {
             </View>
           )}
         />
-
-
+        
       </View>
     </ScrollView>
   );
@@ -85,17 +77,27 @@ const styles = StyleSheet.create({
   texto: {
     fontSize: 40,
   },
-  listaContainer: {
+  viewflatlist: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    display: 'flex',
+    flex: 1,
+    textAlign: 'center',
+    flexWrap: 'wrap',
     flexDirection: 'row',
     alignItems: 'center',
+    padding: 10,
+    marginVertical: 5, 
+    borderRadius: 5, 
+    borderWidth: 1, 
+    borderColor: '#ccc', 
   },
   container2: {
     marginLeft: 25,
-    justifyContent: 'flex-end',
     paddingHorizontal: 15,
     paddingVertical: 5,
     flexDirection: 'row',
-    alignItems: 'center',
   },
   inputContainer: {
     flexDirection: 'row',
@@ -103,41 +105,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   input: {
-    width: '50%',
-    height: 40,
+    width: '40%',
+    height: 30,
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 5,
-    paddingHorizontal: 10,
-    fontSize: 18,
-    alignItems: 'center',
+    paddingHorizontal: 0
   },
   botao: {
-    width: '30%',
-    height: 40,
-    backgroundColor: '#FF6347',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  botaoTexto: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
-    alignItems: 'center',
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  texto: {
-    fontSize: 40,
-  },
-  listaContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderRadius: 5
+    backgroundColor: '#38cb2e',
+    padding: 10,
+    borderRadius: 15,
+    marginTop: 5,
   }
 })
